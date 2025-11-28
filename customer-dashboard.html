@@ -93,27 +93,26 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#about" class="nav-link">
+                            <a href="about.html" class="nav-link">
                                 <i class="fas fa-info-circle"></i>
                                 <span>About</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#contact" class="nav-link">
+                            <a href="contact.html" class="nav-link">
                                 <i class="fas fa-envelope"></i>
                                 <span>Contact</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="product-requests.html" class="nav-link">
+                                <i class="fas fa-comments"></i>
+                                <span>Product Requests</span>
                             </a>
                         </li>
                     </ul>
 
                     <div class="nav-actions">
-                        <div class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input
-                                type="text"
-                                placeholder="Search products..."
-                            />
-                        </div>
                         <a href="cart.html" class="cart-icon-wrapper">
                             <div class="cart-icon">
                                 <i class="fas fa-shopping-bag"></i>
@@ -149,26 +148,8 @@
         <div class="dashboard">
             <!-- Sidebar -->
             <aside class="sidebar">
-                <div style="padding: 20px">
-                    <div class="sidebar-profile">
-                        <div class="sidebar-profile-bg">
-                            <div class="sidebar-avatar">
-                                <span id="profile-initials">JD</span>
-                            </div>
-                        </div>
-                        <div class="sidebar-profile-info">
-                            <h4 id="customer-name">John Doe</h4>
-                            <p id="customer-email">john@example.com</p>
-                            <div class="profile-status">
-                                <span class="status-dot"></span>
-                                <span class="status-text">Online</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="sidebar-divider">
-                    <span>Main Menu</span>
+                    <span>MAIN MENU</span>
                 </div>
 
                 <div class="sidebar-menu">
@@ -207,12 +188,16 @@
                     >
                         <i class="fas fa-user"></i> Profile
                     </a>
+
+                    <div class="sidebar-divider">
+                        <span>ACCOUNT</span>
+                    </div>
+
                     <a
-                        href="#requests"
-                        class="sidebar-link"
-                        onclick="showSection('requests')"
+                        href="javascript:logout()"
+                        class="sidebar-link sidebar-link-logout"
                     >
-                        <i class="fas fa-comments"></i> Product Requests
+                        <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                 </div>
             </aside>
@@ -228,16 +213,7 @@
                             font-weight: 700;
                             color: var(--text-dark);
                         "
-                    >
-                        <i
-                            class="fas fa-home"
-                            style="
-                                color: var(--primary-color);
-                                margin-right: 10px;
-                            "
-                        ></i>
-                        Welcome Back, <span id="welcome-name">John</span>! 👋
-                    </h2>
+                    ></h2>
 
                     <!-- Stats Grid - Modern Cards -->
                     <div
@@ -588,7 +564,7 @@
                             </button>
                             <button
                                 class="btn btn-outline"
-                                onclick="showSection('requests')"
+                                onclick="window.location.href='product-requests.html'"
                             >
                                 <i class="fas fa-plus"></i> Request Product
                             </button>
@@ -618,8 +594,6 @@
                     class="dashboard-section"
                     style="display: none"
                 >
-                    <h2 style="margin-bottom: 30px">My Orders</h2>
-
                     <div
                         style="
                             background: white;
@@ -649,8 +623,6 @@
                     class="dashboard-section"
                     style="display: none"
                 >
-                    <h2 style="margin-bottom: 30px">My Wishlist</h2>
-
                     <div class="products-grid">
                         <div
                             class="product-card"
@@ -730,8 +702,6 @@
                     class="dashboard-section"
                     style="display: none"
                 >
-                    <h2 style="margin-bottom: 30px">My Addresses</h2>
-
                     <div style="margin-bottom: 20px">
                         <button
                             class="btn btn-primary"
@@ -841,8 +811,6 @@
                     class="dashboard-section"
                     style="display: none"
                 >
-                    <h2 style="margin-bottom: 30px">My Profile</h2>
-
                     <div
                         style="
                             background: white;
@@ -970,110 +938,6 @@
                                 <i class="fas fa-save"></i> Save Changes
                             </button>
                         </form>
-                    </div>
-                </section>
-
-                <!-- Requests Section -->
-                <section
-                    id="requests-section"
-                    class="dashboard-section"
-                    style="display: none"
-                >
-                    <h2 style="margin-bottom: 30px">Product Requests</h2>
-
-                    <div
-                        style="
-                            background: white;
-                            padding: 30px;
-                            border-radius: var(--border-radius);
-                            box-shadow: var(--shadow);
-                            margin-bottom: 30px;
-                        "
-                    >
-                        <h3 style="margin-bottom: 20px">Request a Product</h3>
-                        <form id="product-request-form">
-                            <div class="form-group">
-                                <label class="form-label">Product Name</label>
-                                <input
-                                    type="text"
-                                    class="form-input"
-                                    placeholder="What product would you like us to add?"
-                                />
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Category</label>
-                                <select class="form-select">
-                                    <option value="">Select category</option>
-                                    <option value="food">Food</option>
-                                    <option value="grocery">Grocery</option>
-                                    <option value="medicine">Medicine</option>
-                                    <option value="beverages">Beverages</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label"
-                                    >Description/Details</label
-                                >
-                                <textarea
-                                    class="form-textarea"
-                                    placeholder="Please provide more details about the product..."
-                                ></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-paper-plane"></i> Submit
-                                Request
-                            </button>
-                        </form>
-                    </div>
-
-                    <div
-                        style="
-                            background: white;
-                            padding: 30px;
-                            border-radius: var(--border-radius);
-                            box-shadow: var(--shadow);
-                        "
-                    >
-                        <h3 style="margin-bottom: 20px">My Requests</h3>
-
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Product Name</th>
-                                    <th>Category</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Nov 5, 2024</td>
-                                    <td>Organic Honey</td>
-                                    <td>Grocery</td>
-                                    <td>
-                                        <span
-                                            class="status-badge status-pending"
-                                            >Under Review</span
-                                        >
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Nov 3, 2024</td>
-                                    <td>Gluten-Free Bread</td>
-                                    <td>Food</td>
-                                    <td>
-                                        <span
-                                            class="status-badge status-confirmed"
-                                            >Added</span
-                                        >
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </section>
             </main>

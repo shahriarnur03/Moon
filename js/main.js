@@ -444,12 +444,9 @@ function renderAuthButtons(container) {
 }
 
 function renderUserProfile(container, user) {
-    const profileInitials = user.name
-        ? user.name.charAt(0).toUpperCase()
-        : user.email.charAt(0).toUpperCase();
-
-    const displayName = user.name || user.email.split("@")[0];
-    const displayRole = user.role === "admin" ? "Admin" : "Customer";
+    const fullName = user.name || user.email.split("@")[0];
+    const firstName = fullName.split(" ")[0];
+    const avatarInitial = firstName.charAt(0).toUpperCase();
     const dashboardUrl =
         user.role === "admin"
             ? "admin-dashboard.html"
@@ -457,19 +454,18 @@ function renderUserProfile(container, user) {
 
     container.innerHTML = `
         <div class="user-profile">
-            <div class="profile-trigger" onclick="toggleProfileMenu(event)">
-                <div class="profile-avatar">${profileInitials}</div>
+            <button type="button" class="profile-trigger" onclick="toggleProfileMenu(event)">
+                <div class="profile-avatar">${avatarInitial}</div>
                 <div class="profile-info">
-                    <div class="profile-name">${displayName}</div>
-                    <div class="profile-role">${displayRole}</div>
+                    <div class="profile-name">${firstName}</div>
                 </div>
                 <i class="fas fa-chevron-down profile-chevron"></i>
-            </div>
+            </button>
             <div class="profile-menu">
                 <div class="profile-menu-header">
-                    <div class="profile-menu-avatar">${profileInitials}</div>
+                    <div class="profile-menu-avatar">${avatarInitial}</div>
                     <div class="profile-menu-info">
-                        <h4>${displayName}</h4>
+                        <h4>${fullName}</h4>
                         <p>${user.email}</p>
                     </div>
                 </div>
