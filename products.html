@@ -109,6 +109,7 @@
                             <input
                                 type="text"
                                 placeholder="Search products..."
+                                id="nav-search-input"
                             />
                         </div>
                         <a href="cart.html" class="cart-icon-wrapper">
@@ -899,6 +900,24 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Pagination -->
+                <div
+                    class="pagination-container"
+                    style="
+                        margin-top: 50px;
+                        display: flex;
+                        justify-content: center;
+                    "
+                >
+                    <div
+                        class="pagination"
+                        id="pagination"
+                        style="display: flex; gap: 10px; align-items: center"
+                    >
+                        <!-- Pagination buttons will be added by JavaScript -->
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1278,10 +1297,391 @@
         <script src="js/cart.js"></script>
         <script src="js/ui.js"></script>
         <script>
+            // Filter tabs and pagination functionality
+            function initializeFilterTabs() {
+                const filterTabs = document.querySelectorAll(".filter-tab");
+                const productCards = document.querySelectorAll(".product-card");
+                const searchInput = document.querySelector(".search-input");
+                const sortSelect = document.querySelector(".form-select");
+                const paginationContainer =
+                    document.getElementById("pagination");
+
+                let currentCategory = "all";
+                let searchQuery = "";
+                let currentPage = 1;
+                const productsPerPage = 10;
+                let filteredProducts = [];
+
+                // Function to filter products
+                function filterProducts() {
+                    filteredProducts = Array.from(productCards).filter(
+                        (card) => {
+                            const cardCategory =
+                                card.getAttribute("data-category");
+                            const productName = card
+                                .querySelector(".product-name")
+                                .textContent.toLowerCase();
+                            const productDescription = card
+                                .querySelector(".product-description")
+                                .textContent.toLowerCase();
+
+                            // Check if the product matches both the category and search criteria
+                            const matchesCategory =
+                                currentCategory === "all" ||
+                                cardCategory === currentCategory;
+                            const matchesSearch =
+                                searchQuery === "" ||
+                                productName.includes(searchQuery) ||
+                                productDescription.includes(searchQuery);
+
+                            return matchesCategory && matchesSearch;
+                        }
+                    );
+
+                    // Reset to first page when filters change
+                    currentPage = 1;
+
+                    // Update pagination and display products
+                    updatePagination();
+                    displayProducts();
+                }
+
+                // Function to display products for current page
+                function displayProducts() {
+                    // Hide all products first
+                    productCards.forEach((card) => {
+                        card.style.display = "none";
+                    });
+
+                    // Calculate start and end indices for current page
+                    const startIndex = (currentPage - 1) * productsPerPage;
+                    const endIndex = Math.min(
+                        startIndex + productsPerPage,
+                        filteredProducts.length
+                    );
+
+                    // Show only products for current page
+                    for (let i = startIndex; i < endIndex; i++) {
+                        filteredProducts[i].style.display = "block";
+                    }
+
+                    // Scroll to top of products section
+                    const productsSection =
+                        document.querySelector(".products-grid");
+                    if (productsSection) {
+                        productsSection.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                        });
+                    }
+                }
+
+                // Function to update pagination controls
+                function updatePagination() {
+                    const totalPages = Math.ceil(
+                        filteredProducts.length / productsPerPage
+                    );
+
+                    // Clear previous pagination
+                    if (paginationContainer) {
+                        paginationContainer.innerHTML = "";
+
+                        // Only show pagination if we have more than 1 page
+                        if (totalPages > 1) {
+                            // Prev button
+                            const prevButton = document.createElement("button");
+                            prevButton.innerHTML = "&laquo;";
+                            prevButton.style.cssText =
+                                "padding: 8px 16px; border: none; background-color: #f8f8f8; border-radius: 5px; cursor: pointer; transition: all 0.3s ease;";
+                            prevButton.disabled = currentPage === 1;
+                            if (currentPage === 1) {
+                                prevButton.style.opacity = "0.5";
+                                prevButton.style.cursor = "not-allowed";
+                            }
+                            prevButton.addEventListener("click", () => {
+                                if (currentPage > 1) {
+                                    currentPage--;
+                                    displayProducts();
+                                    updatePagination();
+                                }
+                            });
+                            paginationContainer.appendChild(prevButton);
+
+                            // Page buttons
+                            const maxVisibleButtons = 5;
+                            let startPage = Math.max(
+                                1,
+                                currentPage - Math.floor(maxVisibleButtons / 2)
+                            );
+                            let endPage = Math.min(
+                                totalPages,
+                                startPage + maxVisibleButtons - 1
+                            );
+
+                            // Adjust startPage if we're near the end
+                            if (endPage - startPage + 1 < maxVisibleButtons) {
+                                startPage = Math.max(
+                                    1,
+                                    endPage - maxVisibleButtons + 1
+                                );
+                            }
+
+                            // First page button if not visible
+                            if (startPage > 1) {
+                                const firstPageBtn =
+                                    document.createElement("button");
+                                firstPageBtn.textContent = "1";
+                                firstPageBtn.style.cssText =
+                                    "padding: 8px 16px; border: none; background-color: #f8f8f8; border-radius: 5px; cursor: pointer; transition: all 0.3s ease;";
+                                firstPageBtn.addEventListener("click", () => {
+                                    currentPage = 1;
+                                    displayProducts();
+                                    updatePagination();
+                                });
+                                paginationContainer.appendChild(firstPageBtn);
+
+                                // Ellipsis if needed
+                                if (startPage > 2) {
+                                    const ellipsis =
+                                        document.createElement("span");
+                                    ellipsis.textContent = "...";
+                                    ellipsis.style.padding = "8px 5px";
+                                    paginationContainer.appendChild(ellipsis);
+                                }
+                            }
+
+                            // Page buttons
+                            for (let i = startPage; i <= endPage; i++) {
+                                const pageBtn =
+                                    document.createElement("button");
+                                pageBtn.textContent = i;
+                                pageBtn.style.cssText = `padding: 8px 16px; border: none; border-radius: 5px; cursor: pointer; transition: all 0.3s ease; ${
+                                    i === currentPage
+                                        ? "background-color: var(--primary-color); color: white;"
+                                        : "background-color: #f8f8f8;"
+                                }`;
+                                pageBtn.addEventListener("click", () => {
+                                    currentPage = i;
+                                    displayProducts();
+                                    updatePagination();
+                                });
+                                paginationContainer.appendChild(pageBtn);
+                            }
+
+                            // Last page button if not visible
+                            if (endPage < totalPages) {
+                                // Ellipsis if needed
+                                if (endPage < totalPages - 1) {
+                                    const ellipsis =
+                                        document.createElement("span");
+                                    ellipsis.textContent = "...";
+                                    ellipsis.style.padding = "8px 5px";
+                                    paginationContainer.appendChild(ellipsis);
+                                }
+
+                                const lastPageBtn =
+                                    document.createElement("button");
+                                lastPageBtn.textContent = totalPages;
+                                lastPageBtn.style.cssText =
+                                    "padding: 8px 16px; border: none; background-color: #f8f8f8; border-radius: 5px; cursor: pointer; transition: all 0.3s ease;";
+                                lastPageBtn.addEventListener("click", () => {
+                                    currentPage = totalPages;
+                                    displayProducts();
+                                    updatePagination();
+                                });
+                                paginationContainer.appendChild(lastPageBtn);
+                            }
+
+                            // Next button
+                            const nextButton = document.createElement("button");
+                            nextButton.innerHTML = "&raquo;";
+                            nextButton.style.cssText =
+                                "padding: 8px 16px; border: none; background-color: #f8f8f8; border-radius: 5px; cursor: pointer; transition: all 0.3s ease;";
+                            nextButton.disabled = currentPage === totalPages;
+                            if (currentPage === totalPages) {
+                                nextButton.style.opacity = "0.5";
+                                nextButton.style.cursor = "not-allowed";
+                            }
+                            nextButton.addEventListener("click", () => {
+                                if (currentPage < totalPages) {
+                                    currentPage++;
+                                    displayProducts();
+                                    updatePagination();
+                                }
+                            });
+                            paginationContainer.appendChild(nextButton);
+
+                            // Add hover effect to all buttons
+                            paginationContainer
+                                .querySelectorAll("button")
+                                .forEach((btn) => {
+                                    if (!btn.disabled) {
+                                        btn.addEventListener(
+                                            "mouseover",
+                                            function () {
+                                                if (
+                                                    !this.classList.contains(
+                                                        "active"
+                                                    )
+                                                ) {
+                                                    this.style.backgroundColor =
+                                                        "#e0e0e0";
+                                                }
+                                            }
+                                        );
+                                        btn.addEventListener(
+                                            "mouseout",
+                                            function () {
+                                                if (
+                                                    !this.classList.contains(
+                                                        "active"
+                                                    )
+                                                ) {
+                                                    this.style.backgroundColor =
+                                                        "#f8f8f8";
+                                                }
+                                            }
+                                        );
+                                    }
+                                });
+                        }
+
+                        // Add product count info
+                        const productCountInfo = document.createElement("div");
+                        productCountInfo.style.cssText =
+                            "margin-left: 15px; color: var(--text-light); font-size: 14px;";
+                        productCountInfo.textContent = `Showing ${
+                            filteredProducts.length
+                                ? (currentPage - 1) * productsPerPage + 1
+                                : 0
+                        }-${Math.min(
+                            currentPage * productsPerPage,
+                            filteredProducts.length
+                        )} of ${filteredProducts.length} products`;
+                        paginationContainer.appendChild(productCountInfo);
+                    }
+                }
+
+                // Function to sort products
+                function sortProducts(sortBy) {
+                    const productsContainer =
+                        document.getElementById("products-container");
+
+                    filteredProducts.sort((a, b) => {
+                        if (sortBy === "price-low") {
+                            const priceA = parseFloat(
+                                a
+                                    .querySelector(".product-price")
+                                    .textContent.replace("৳", "")
+                            );
+                            const priceB = parseFloat(
+                                b
+                                    .querySelector(".product-price")
+                                    .textContent.replace("৳", "")
+                            );
+                            return priceA - priceB;
+                        } else if (sortBy === "price-high") {
+                            const priceA = parseFloat(
+                                a
+                                    .querySelector(".product-price")
+                                    .textContent.replace("৳", "")
+                            );
+                            const priceB = parseFloat(
+                                b
+                                    .querySelector(".product-price")
+                                    .textContent.replace("৳", "")
+                            );
+                            return priceB - priceA;
+                        } else if (sortBy === "name") {
+                            const nameA = a
+                                .querySelector(".product-name")
+                                .textContent.toLowerCase();
+                            const nameB = b
+                                .querySelector(".product-name")
+                                .textContent.toLowerCase();
+                            return nameA.localeCompare(nameB);
+                        }
+                        return 0;
+                    });
+
+                    // Reset to first page
+                    currentPage = 1;
+
+                    // Update pagination and display products
+                    updatePagination();
+                    displayProducts();
+                }
+
+                // Add click event to each filter tab
+                filterTabs.forEach((tab) => {
+                    tab.addEventListener("click", () => {
+                        // Remove active class from all tabs
+                        filterTabs.forEach((t) => t.classList.remove("active"));
+
+                        // Add active class to clicked tab
+                        tab.classList.add("active");
+
+                        // Update current category
+                        currentCategory = tab.getAttribute("data-category");
+
+                        // Apply filters
+                        filterProducts();
+                    });
+                });
+
+                // Add search functionality
+                if (searchInput) {
+                    searchInput.addEventListener("input", function () {
+                        searchQuery = this.value.toLowerCase();
+                        filterProducts();
+                    });
+                }
+
+                // Add sort functionality
+                if (sortSelect) {
+                    sortSelect.addEventListener("change", function () {
+                        sortProducts(this.value);
+                    });
+                }
+
+                // Initialize pagination
+                filterProducts();
+            }
+
             // Initialize filter tabs on page load
             document.addEventListener("DOMContentLoaded", function () {
                 initializeFilterTabs();
                 makeProductsClickable();
+
+                // Connect nav search with filter search
+                const navSearchInput =
+                    document.getElementById("nav-search-input");
+                const filterSearchInput =
+                    document.querySelector(".search-input");
+
+                if (navSearchInput && filterSearchInput) {
+                    navSearchInput.addEventListener("input", function () {
+                        filterSearchInput.value = this.value;
+                        // Trigger the input event on the filter search input
+                        const event = new Event("input", { bubbles: true });
+                        filterSearchInput.dispatchEvent(event);
+                    });
+                }
+
+                // Check for category parameter in URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const categoryParam = urlParams.get("category");
+
+                if (categoryParam) {
+                    // Find the matching category tab
+                    const categoryTab = document.querySelector(
+                        `.filter-tab[data-category="${categoryParam}"]`
+                    );
+                    if (categoryTab) {
+                        // Simulate a click on the category tab
+                        categoryTab.click();
+                    }
+                }
             });
 
             // Make all product cards clickable

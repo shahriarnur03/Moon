@@ -190,126 +190,200 @@
             </div>
         </section>
 
-        <!-- Features Section -->
-        <section class="section" style="background: var(--light-bg)">
+        <!-- Product Categories Section -->
+        <section class="section" style="background-color: var(--light-bg)">
             <div class="container">
                 <div class="section-header" data-animate>
-                    <p class="section-subtitle">Why Choose Us</p>
-                    <h2 class="section-title">We Provide Best Food Services</h2>
+                    <p class="section-subtitle">Browse Categories</p>
+                    <h2 class="section-title">Shop By Category</h2>
                 </div>
 
-                <div class="products-grid">
-                    <div class="product-card" data-animate>
+                <div
+                    class="categories-grid"
+                    style="
+                        display: grid;
+                        grid-template-columns: repeat(
+                            auto-fill,
+                            minmax(200px, 1fr)
+                        );
+                        gap: 20px;
+                        margin: 40px 0;
+                    "
+                >
+                    <a
+                        href="products.html?category=handmade"
+                        class="category-card"
+                        style="
+                            text-decoration: none;
+                            text-align: center;
+                            background-color: white;
+                            border-radius: 10px;
+                            padding: 20px;
+                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                            transition: all 0.3s ease;
+                        "
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0, 0, 0, 0.1)';"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0, 0, 0, 0.05)';"
+                    >
                         <div
-                            class="product-image"
                             style="
-                                background: linear-gradient(
-                                    135deg,
-                                    #ff6b35 0%,
-                                    #f7931e 100%
-                                );
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
+                                font-size: 48px;
+                                margin-bottom: 15px;
+                                color: var(--primary-color);
                             "
                         >
-                            <i
-                                class="fas fa-shipping-fast"
-                                style="font-size: 80px; color: white"
-                            ></i>
+                            🍛
                         </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Fast Delivery</h3>
-                            <p class="product-description">
-                                Get your orders delivered within 30 minutes. We
-                                value your time and ensure quick service.
-                            </p>
-                        </div>
-                    </div>
+                        <h3
+                            style="
+                                margin: 0;
+                                font-size: 18px;
+                                color: var(--text-dark);
+                            "
+                        >
+                            Handmade Food
+                        </h3>
+                    </a>
 
-                    <div class="product-card" data-animate>
+                    <a
+                        href="products.html?category=dryfood"
+                        class="category-card"
+                        style="
+                            text-decoration: none;
+                            text-align: center;
+                            background-color: white;
+                            border-radius: 10px;
+                            padding: 20px;
+                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                            transition: all 0.3s ease;
+                        "
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0, 0, 0, 0.1)';"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0, 0, 0, 0.05)';"
+                    >
                         <div
-                            class="product-image"
                             style="
-                                background: linear-gradient(
-                                    135deg,
-                                    #28a745 0%,
-                                    #20c997 100%
-                                );
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
+                                font-size: 48px;
+                                margin-bottom: 15px;
+                                color: var(--primary-color);
                             "
                         >
-                            <i
-                                class="fas fa-leaf"
-                                style="font-size: 80px; color: white"
-                            ></i>
+                            🍪
                         </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Fresh Ingredients</h3>
-                            <p class="product-description">
-                                We source only the freshest ingredients from
-                                trusted suppliers to ensure quality.
-                            </p>
-                        </div>
-                    </div>
+                        <h3
+                            style="
+                                margin: 0;
+                                font-size: 18px;
+                                color: var(--text-dark);
+                            "
+                        >
+                            Dry Food & Snacks
+                        </h3>
+                    </a>
 
-                    <div class="product-card" data-animate>
+                    <a
+                        href="products.html?category=medicine"
+                        class="category-card"
+                        style="
+                            text-decoration: none;
+                            text-align: center;
+                            background-color: white;
+                            border-radius: 10px;
+                            padding: 20px;
+                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                            transition: all 0.3s ease;
+                        "
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0, 0, 0, 0.1)';"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0, 0, 0, 0.05)';"
+                    >
                         <div
-                            class="product-image"
                             style="
-                                background: linear-gradient(
-                                    135deg,
-                                    #e31e24 0%,
-                                    #ff6b35 100%
-                                );
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
+                                font-size: 48px;
+                                margin-bottom: 15px;
+                                color: var(--primary-color);
                             "
                         >
-                            <i
-                                class="fas fa-star"
-                                style="font-size: 80px; color: white"
-                            ></i>
+                            💊
                         </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Best Quality</h3>
-                            <p class="product-description">
-                                Quality is our priority. Every product is
-                                carefully checked before delivery.
-                            </p>
-                        </div>
-                    </div>
+                        <h3
+                            style="
+                                margin: 0;
+                                font-size: 18px;
+                                color: var(--text-dark);
+                            "
+                        >
+                            Emergency Medicine
+                        </h3>
+                    </a>
 
-                    <div class="product-card" data-animate>
+                    <a
+                        href="products.html?category=beverages"
+                        class="category-card"
+                        style="
+                            text-decoration: none;
+                            text-align: center;
+                            background-color: white;
+                            border-radius: 10px;
+                            padding: 20px;
+                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                            transition: all 0.3s ease;
+                        "
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0, 0, 0, 0.1)';"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0, 0, 0, 0.05)';"
+                    >
                         <div
-                            class="product-image"
                             style="
-                                background: linear-gradient(
-                                    135deg,
-                                    #6f42c1 0%,
-                                    #e83e8c 100%
-                                );
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
+                                font-size: 48px;
+                                margin-bottom: 15px;
+                                color: var(--primary-color);
                             "
                         >
-                            <i
-                                class="fas fa-headset"
-                                style="font-size: 80px; color: white"
-                            ></i>
+                            🥤
                         </div>
-                        <div class="product-info">
-                            <h3 class="product-name">24/7 Support</h3>
-                            <p class="product-description">
-                                Our customer support team is always ready to
-                                help you with any queries.
-                            </p>
+                        <h3
+                            style="
+                                margin: 0;
+                                font-size: 18px;
+                                color: var(--text-dark);
+                            "
+                        >
+                            Beverages
+                        </h3>
+                    </a>
+
+                    <a
+                        href="products.html?category=grocery"
+                        class="category-card"
+                        style="
+                            text-decoration: none;
+                            text-align: center;
+                            background-color: white;
+                            border-radius: 10px;
+                            padding: 20px;
+                            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                            transition: all 0.3s ease;
+                        "
+                        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 25px rgba(0, 0, 0, 0.1)';"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 5px 15px rgba(0, 0, 0, 0.05)';"
+                    >
+                        <div
+                            style="
+                                font-size: 48px;
+                                margin-bottom: 15px;
+                                color: var(--primary-color);
+                            "
+                        >
+                            🛒
                         </div>
-                    </div>
+                        <h3
+                            style="
+                                margin: 0;
+                                font-size: 18px;
+                                color: var(--text-dark);
+                            "
+                        >
+                            Daily Essentials
+                        </h3>
+                    </a>
                 </div>
             </div>
         </section>
@@ -466,6 +540,129 @@
                     >
                         View All Products <i class="fas fa-arrow-right"></i>
                     </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: var(--light-bg)">
+            <div class="container">
+                <div class="section-header" data-animate>
+                    <p class="section-subtitle">Why Choose Us</p>
+                    <h2 class="section-title">We Provide Best Food Services</h2>
+                </div>
+
+                <div class="products-grid">
+                    <div class="product-card" data-animate>
+                        <div
+                            class="product-image"
+                            style="
+                                background: linear-gradient(
+                                    135deg,
+                                    #ff6b35 0%,
+                                    #f7931e 100%
+                                );
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            "
+                        >
+                            <i
+                                class="fas fa-shipping-fast"
+                                style="font-size: 80px; color: white"
+                            ></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Fast Delivery</h3>
+                            <p class="product-description">
+                                Get your orders delivered within 30 minutes. We
+                                value your time and ensure quick service.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-animate>
+                        <div
+                            class="product-image"
+                            style="
+                                background: linear-gradient(
+                                    135deg,
+                                    #28a745 0%,
+                                    #20c997 100%
+                                );
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            "
+                        >
+                            <i
+                                class="fas fa-leaf"
+                                style="font-size: 80px; color: white"
+                            ></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Fresh Ingredients</h3>
+                            <p class="product-description">
+                                We source only the freshest ingredients from
+                                trusted suppliers to ensure quality.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-animate>
+                        <div
+                            class="product-image"
+                            style="
+                                background: linear-gradient(
+                                    135deg,
+                                    #e31e24 0%,
+                                    #ff6b35 100%
+                                );
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            "
+                        >
+                            <i
+                                class="fas fa-star"
+                                style="font-size: 80px; color: white"
+                            ></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Best Quality</h3>
+                            <p class="product-description">
+                                Quality is our priority. Every product is
+                                carefully checked before delivery.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-animate>
+                        <div
+                            class="product-image"
+                            style="
+                                background: linear-gradient(
+                                    135deg,
+                                    #6f42c1 0%,
+                                    #e83e8c 100%
+                                );
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            "
+                        >
+                            <i
+                                class="fas fa-headset"
+                                style="font-size: 80px; color: white"
+                            ></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">24/7 Support</h3>
+                            <p class="product-description">
+                                Our customer support team is always ready to
+                                help you with any queries.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
